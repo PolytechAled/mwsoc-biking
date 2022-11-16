@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Web;
 using static System.Collections.Specialized.BitVector32;
@@ -27,7 +28,7 @@ namespace RestLib
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(name, key);
         }
 
-        public async Task<T> GetRequest<T>(string endpoint, Dictionary<string, string> param)
+        public async Task<JsonNode> GetRequest(string endpoint, Dictionary<string, string> param)
         {
             try
             {
@@ -46,7 +47,7 @@ namespace RestLib
                 HttpResponseMessage response = await client.GetAsync(builder.ToString());
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<T>(responseBody);
+                return JsonNode.Parse(responseBody);
             }
             catch (HttpRequestException e)
             {

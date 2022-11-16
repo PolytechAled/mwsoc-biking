@@ -4,8 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServer", "BikingServer\BikingServer.csproj", "{A76D7B99-0947-4075-A930-4258B2191838}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82} = {B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServerCache", "BikingServerCache\BikingServerCache.csproj", "{5645402D-38BD-40B8-8827-ACCAAAE283F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82} = {B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestLib", "RestLib\RestLib.csproj", "{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}"
 EndProject
