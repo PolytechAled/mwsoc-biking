@@ -147,9 +147,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets'))" />
-    <Error Condition="!Exists('..\packages\Refit.6.3.2\build\netstandard2.0\refit.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Refit.6.3.2\build\netstandard2.0\refit.targets'))" />
   </Target>
-  <Import Project="..\packages\Refit.6.3.2\build\netstandard2.0\refit.targets" Condition="Exists('..\packages\Refit.6.3.2\build\netstandard2.0\refit.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
