@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServer", "BikingServe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServerCache", "BikingServerCache\BikingServerCache.csproj", "{5645402D-38BD-40B8-8827-ACCAAAE283F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestLib", "RestLib\RestLib.csproj", "{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5645402D-38BD-40B8-8827-ACCAAAE283F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5645402D-38BD-40B8-8827-ACCAAAE283F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5645402D-38BD-40B8-8827-ACCAAAE283F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
