@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BikingServer
 {
@@ -13,7 +14,8 @@ namespace BikingServer
     {
 
         // TODO: Add your service operations here
-        void CalculatePath(double startLongitude, double startLatitude, double endLongitude, double endLatitude);
+        [OperationContract]
+        Task<string> CalculatePath(string startPoint, string endPoint);
 
 
     }
