@@ -17,22 +17,55 @@ namespace BikingServer
     {
 
         private RestClient osmClient;
+        private string apiKeyOSM;
     
         public BikingService()
         {
             osmClient = new RestClient("https://api.openrouteservice.org");
+            apiKeyOSM = "5b3ce3597851110001cf62486537b9afff0f4690ac90c9034c9116c5";
         }
+
         public async Task<string> CalculatePath(string startPoint, string endPoint)
         {
-            Dictionary<string, string> param = new Dictionary<string, string>()
+            Dictionary<string, string> paramStartPoint = new Dictionary<string, string>()
             {
-                {"api_key", "5b3ce3597851110001cf62486537b9afff0f4690ac90c9034c9116c5"},
+                {"api_key", apiKeyOSM},
                 { "text", startPoint },
             };
 
-            JsonNode jsonStartPoint = await osmClient.GetRequest("/geocode/search", param);
-            string startCoordinates = jsonStartPoint["features"][0]["geometry"]["coordinates"][0].ToString();
-            return startCoordinates;
+            Dictionary<string, string> paramEndPoint = new Dictionary<string, string>()
+            {
+                {"api_key", apiKeyOSM },
+                { "text", endPoint },
+            };
+
+            JsonNode jsonStartPoint = await osmClient.GetRequest("/geocode/search", paramStartPoint);
+            JsonNode jsonEndPoint = await osmClient.GetRequest("/geocode/search", paramEndPoint);
+
+            string startCoordinates = GetParseCoordinates(jsonStartPoint)[0].ToString() + "," + GetParseCoordinates(jsonStartPoint)[1].ToString();
+
+            string endCoordinates = GetParseCoordinates(jsonEndPoint)[0].ToString() + "," + GetParseCoordinates(jsonEndPoint)[1].ToString();
+
+            return "["+startCoordinates+"],["+endCoordinates+"]"; 
+        }
+
+        private JsonNode GetParseCoordinates(JsonNode jsonNode)
+        {
+            return jsonNode["features"][0]["geometry"]["coordinates"];
+        }
+
+        public async Task<string> CalculateRoute(string startEndCoordinates)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>()
+            {
+                {"coordinates", "["+startEndCoordinates+"]" },
+                {"language","fr-fr" },
+                {"units","km" }
+            };
+
+            JsonNode jsonReturnInfo = await osmClient.GetRequest("/v2/directions/cycling-road/json", param);
+
+            return jsonReturnInfo.ToString();
         }
     }
 }
