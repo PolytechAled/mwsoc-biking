@@ -23,6 +23,7 @@ namespace BikingServer
         {
             osmClient = new RestClient("https://api.openrouteservice.org");
             apiKeyOSM = "5b3ce3597851110001cf62486537b9afff0f4690ac90c9034c9116c5";
+            osmClient.SetApiKey("Authorization", apiKeyOSM);
         }
 
         public async Task<string> CalculatePath(string startPoint, string endPoint)
@@ -63,7 +64,7 @@ namespace BikingServer
                 {"units","km" }
             };
 
-            JsonNode jsonReturnInfo = await osmClient.GetRequest("/v2/directions/cycling-road/json", param);
+            JsonNode jsonReturnInfo = await osmClient.PostRequest("v2/directions/foot-walking/json", param);
 
             return jsonReturnInfo.ToString();
         }
