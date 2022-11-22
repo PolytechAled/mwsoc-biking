@@ -32,7 +32,7 @@ namespace BikingServer
             var a = await osmRepository.GetPosition(startPoint);
             var b = await osmRepository.GetPosition(endPoint);
             var c = await osmRepository.GetNavigation(a, b);
-            return c;
+            return "toto";
         }
     }
 }
