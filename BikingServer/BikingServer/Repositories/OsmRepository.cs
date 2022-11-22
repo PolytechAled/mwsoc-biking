@@ -34,9 +34,26 @@ namespace BikingServer.Repositories
             var jsonNode = await client.GetRequest("geocode/search", param);
             return new GeoCoordinate()
             {
-                Latitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][0],
-                Longitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][1]
+                Longitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][0],
+                Latitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][1]
             };
+        }
+
+        public async Task<string> GetNavigation(GeoCoordinate start, GeoCoordinate end)
+        {
+            List<double[]> coords = new List<double[]>();
+            coords.Add(new double[] { start.Longitude, start.Latitude });
+            coords.Add(new double[] { end.Longitude, end.Latitude });
+
+            Dictionary<string, object> param = new Dictionary<string, object>()
+            {
+                {"coordinates", coords },
+                {"language","fr-fr" },
+                {"units","km" }
+            };
+
+            JsonNode jsonReturnInfo = await client.PostRequest("v2/directions/foot-walking/json", param);
+            return jsonReturnInfo.ToString();
         }
     }
 }

@@ -12,16 +12,8 @@ namespace BikingServer
     [ServiceContract]
     public interface IBikingService
     {
-
-        // TODO: Add your service operations here
         [OperationContract]
         Task<string> CalculatePath(string startPoint, string endPoint);
-
-        [OperationContract]
-        Task<string> CalculateRoute(string StartEndCoordinates);
-
-        [OperationContract]
-        Task<string> Test();
     }
 
 }
