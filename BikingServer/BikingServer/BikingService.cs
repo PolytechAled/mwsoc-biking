@@ -18,6 +18,8 @@ namespace BikingServer
     {
 
         private RestClient osmClient;
+
+        private OsmRepository osmRepository;
         private JCDecauxRepository jcDecauxRepository;
         private string apiKeyOSM;
     
@@ -28,6 +30,7 @@ namespace BikingServer
             osmClient.SetAuthorization("Authorization", apiKeyOSM);
 
             jcDecauxRepository = new JCDecauxRepository();
+            osmRepository = new OsmRepository();
         }
 
         public async Task<string> CalculatePath(string startPoint, string endPoint)
@@ -79,7 +82,7 @@ namespace BikingServer
 
         public async Task<string> Test()
         {
-            var a = await jcDecauxRepository.GetStationDetails("lyon", 6004);
+            var a = await osmRepository.GetPosition("147 boulevard de la Republique, 13300 Salon de Provence");
             return "test";
         }
     }
