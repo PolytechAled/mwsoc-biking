@@ -38,5 +38,13 @@ namespace BikingServer.Repositories
             return JsonSerializer.Deserialize<List<JC_Station>>(result);
         }
 
+        public async Task<JC_Station> GetStationDetails(string contract, int stationId)
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("contract", contract);
+
+            var result = await restClient.GetRequest("vls/v3/stations/" + stationId, data);
+            return JsonSerializer.Deserialize<JC_Station>(result);
+        }
     }
 }

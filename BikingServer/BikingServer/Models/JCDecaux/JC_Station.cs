@@ -26,5 +26,22 @@ namespace BikingServer.Models.JCDecaux
 
         [JsonPropertyName("lastUpdate")]
         public string LastUpdate { get; set; }
+
+        [JsonPropertyName("totalStands")]
+        public JC_Stand Stand { get; set; }
+
+        [JsonPropertyName("status")]
+        public string StatusStr { get; set; }
+
+        [JsonIgnore]
+        public JC_Status Status
+        {
+            get
+            {
+                JC_Status status;
+                Enum.TryParse<JC_Status>(StatusStr, out status);
+                return status;
+            }
+        }
     }
 }
