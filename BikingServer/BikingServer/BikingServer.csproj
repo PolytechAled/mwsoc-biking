@@ -51,6 +51,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Device" />
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -119,7 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBikingService.cs" />
+    <Compile Include="Models\GeoCoordinate.cs" />
     <Compile Include="Models\JCDecaux\JC_Contract.cs" />
+    <Compile Include="Models\JCDecaux\JC_Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BikingService.cs" />
     <Compile Include="Repositories\JCDecauxRepository.cs" />

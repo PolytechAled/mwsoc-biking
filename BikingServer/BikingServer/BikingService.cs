@@ -79,7 +79,7 @@ namespace BikingServer
 
         public async Task<string> Test()
         {
-            var a = await jcDecauxRepository.GetContracts();
+            var a = await jcDecauxRepository.GetStations();
             return "test";
         }
     }

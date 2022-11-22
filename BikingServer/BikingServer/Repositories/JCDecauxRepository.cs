@@ -25,5 +25,18 @@ namespace BikingServer.Repositories
             var result = await restClient.GetRequest("vls/v3/contracts");
             return JsonSerializer.Deserialize<List<JC_Contract>>(result);
         }
+
+        public async Task<List<JC_Station>> GetStations(string contract = "")
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(contract))
+            {
+                data.Add("contract", contract);
+            }
+
+            var result = await restClient.GetRequest("vls/v3/stations", data);
+            return JsonSerializer.Deserialize<List<JC_Station>>(result);
+        }
+
     }
 }
