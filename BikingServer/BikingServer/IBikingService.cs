@@ -18,8 +18,10 @@ namespace BikingServer
         Task<string> CalculatePath(string startPoint, string endPoint);
 
         [OperationContract]
-
         Task<string> CalculateRoute(string StartEndCoordinates);
+
+        [OperationContract]
+        Task<string> Test();
     }
 
 }

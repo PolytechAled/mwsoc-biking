@@ -1,4 +1,5 @@
-﻿using RestLib;
+﻿using BikingServer.Repositories;
+using RestLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,13 +18,16 @@ namespace BikingServer
     {
 
         private RestClient osmClient;
+        private JCDecauxRepository jcDecauxRepository;
         private string apiKeyOSM;
     
         public BikingService()
         {
             osmClient = new RestClient("https://api.openrouteservice.org");
             apiKeyOSM = "5b3ce3597851110001cf62486537b9afff0f4690ac90c9034c9116c5";
-            osmClient.SetApiKey("Authorization", apiKeyOSM);
+            osmClient.SetAuthorization("Authorization", apiKeyOSM);
+
+            jcDecauxRepository = new JCDecauxRepository();
         }
 
         public async Task<string> CalculatePath(string startPoint, string endPoint)
@@ -60,6 +64,7 @@ namespace BikingServer
             List<double[]> coords = new List<double[]>();
             coords.Add(new double[] { 7.106732, 43.587719 });
             coords.Add(new double[] { 5.395393, 43.8782339 });
+
             Dictionary<string, object> param = new Dictionary<string, object>()
             {
                 {"coordinates", coords },
@@ -70,6 +75,12 @@ namespace BikingServer
             JsonNode jsonReturnInfo = await osmClient.PostRequest("v2/directions/foot-walking/json", param);
 
             return jsonReturnInfo.ToString();
+        }
+
+        public async Task<string> Test()
+        {
+            var a = await jcDecauxRepository.GetContracts();
+            return "test";
         }
     }
 }

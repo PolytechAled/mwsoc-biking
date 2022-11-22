@@ -17,6 +17,8 @@ namespace RestLib
     {
         private readonly string service;
         private readonly HttpClient client;
+        private string apiKeyName;
+        private string apiKeyValue;
 
         public RestClient(string service)
         {
@@ -24,18 +26,34 @@ namespace RestLib
             this.client = new HttpClient();
         }
 
-        public void SetApiKey(string name, string key)
+        public void SetAuthorization(string name, string key)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(key);
         }
 
-        public async Task<JsonNode> GetRequest(string endpoint, Dictionary<string, string> param)
+        public void SetGetApiKey(string name, string key)
+        {
+            this.apiKeyName = name;
+            this.apiKeyValue = key;
+        }
+
+        public async Task<JsonNode> GetRequest(string endpoint, Dictionary<string, string> param = null)
         {
             try
             {
                 var builder = new UriBuilder(service + "/" + endpoint);
 
-                if (param != null && param.Any())
+                if (param == null)
+                {
+                    param = new Dictionary<string, string>();
+                }
+
+                if (!string.IsNullOrEmpty(apiKeyName) && !string.IsNullOrEmpty(apiKeyValue))
+                {
+                    param.Add(apiKeyName, apiKeyValue);
+                }
+
+                if (param.Any())
                 {
                     var query = HttpUtility.ParseQueryString(builder.Query);
                     foreach (var kvp in param)
