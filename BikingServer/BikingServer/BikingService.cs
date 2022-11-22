@@ -57,9 +57,12 @@ namespace BikingServer
 
         public async Task<string> CalculateRoute(string startEndCoordinates)
         {
-            Dictionary<string, string> param = new Dictionary<string, string>()
+            List<double[]> coords = new List<double[]>();
+            coords.Add(new double[] { 7.106732, 43.587719 });
+            coords.Add(new double[] { 5.395393, 43.8782339 });
+            Dictionary<string, object> param = new Dictionary<string, object>()
             {
-                {"coordinates", "["+startEndCoordinates+"]" },
+                {"coordinates", coords },
                 {"language","fr-fr" },
                 {"units","km" }
             };

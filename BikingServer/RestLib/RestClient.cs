@@ -56,7 +56,7 @@ namespace RestLib
             }
         }
 
-        public async Task<JsonNode> PostRequest(string endpoint, Dictionary<string,string> param)
+        public async Task<JsonNode> PostRequest(string endpoint, Dictionary<string,object> param)
         {
             try
             {
