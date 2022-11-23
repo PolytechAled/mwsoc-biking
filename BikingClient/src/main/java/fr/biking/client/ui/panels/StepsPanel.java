@@ -10,6 +10,7 @@ public class StepsPanel extends JPanel {
         setLayout(layout);
         setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
+        add(new JLabel("Steps:"));
         add(new TextArea());
     }
 

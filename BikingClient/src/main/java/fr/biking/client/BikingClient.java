@@ -1,6 +1,5 @@
 package fr.biking.client;
 
-import fr.biking.client.service.BikingService;
 import fr.biking.client.ui.BikingFrame;
 
 public class BikingClient {
