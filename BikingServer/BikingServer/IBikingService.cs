@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BikingServer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,7 +14,7 @@ namespace BikingServer
     public interface IBikingService
     {
         [OperationContract]
-        Task<string> CalculatePath(string startPoint, string endPoint);
+        Task<List<NavigationStep>> CalculatePath(string startPoint, string endPoint);
     }
 
 }

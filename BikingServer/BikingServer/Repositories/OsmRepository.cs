@@ -40,7 +40,7 @@ namespace BikingServer.Repositories
             };
         }
 
-        public async Task<OSM_Route> GetNavigation(GeoCoordinate start, GeoCoordinate end)
+        public async Task<OSM_Route> GetNavigation(GeoCoordinate start, GeoCoordinate end, bool isBicycle = false)
         {
             List<double[]> coords = new List<double[]>();
             coords.Add(new double[] { start.Longitude, start.Latitude });
@@ -53,7 +53,7 @@ namespace BikingServer.Repositories
                 {"units","km" }
             };
 
-            JsonNode jsonReturnInfo = await client.PostRequest("v2/directions/foot-walking/json", param);
+            JsonNode jsonReturnInfo = await client.PostRequest("v2/directions/"+ (isBicycle? "cycling-regular" : "foot-walking") +"/json", param);
             return JsonSerializer.Deserialize<List<OSM_Route>>(jsonReturnInfo["routes"]).FirstOrDefault();
         }
     }

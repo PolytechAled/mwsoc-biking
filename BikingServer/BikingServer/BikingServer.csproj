@@ -136,6 +136,7 @@
     <Compile Include="Models\JCDecaux\JC_StandDetails.cs" />
     <Compile Include="Models\JCDecaux\JC_Station.cs" />
     <Compile Include="Models\JCDecaux\JC_Status.cs" />
+    <Compile Include="Models\NavigationStep.cs" />
     <Compile Include="Models\Osm\OSM_Route.cs" />
     <Compile Include="Models\Osm\OSM_Segment.cs" />
     <Compile Include="Models\Osm\OSM_Step.cs" />
