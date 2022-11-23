@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="CalculatePathResult" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="CalculatePathResult" type="{http://schemas.datacontract.org/2004/07/BikingServer.Models}ArrayOfNavigationStep" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,21 +32,21 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "calculatePathResult"
 })
-@XmlRootElement(name = "CalculatePathResponse")
+@XmlRootElement(name = "CalculatePathResponse", namespace = "http://tempuri.org/")
 public class CalculatePathResponse {
 
     @XmlElementRef(name = "CalculatePathResult", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> calculatePathResult;
+    protected JAXBElement<ArrayOfNavigationStep> calculatePathResult;
 
     /**
      * Obtient la valeur de la propriété calculatePathResult.
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ArrayOfNavigationStep }{@code >}
      *     
      */
-    public JAXBElement<String> getCalculatePathResult() {
+    public JAXBElement<ArrayOfNavigationStep> getCalculatePathResult() {
         return calculatePathResult;
     }
 
@@ -55,10 +55,10 @@ public class CalculatePathResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     {@link JAXBElement }{@code <}{@link ArrayOfNavigationStep }{@code >}
      *     
      */
-    public void setCalculatePathResult(JAXBElement<String> value) {
+    public void setCalculatePathResult(JAXBElement<ArrayOfNavigationStep> value) {
         this.calculatePathResult = value;
     }
 
