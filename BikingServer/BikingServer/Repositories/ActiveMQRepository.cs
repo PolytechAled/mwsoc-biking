@@ -12,7 +12,7 @@ using ISession = Apache.NMS.ISession;
 
 namespace BikingServer.Repositories
 {
-    internal class ActiveMQRepository
+    public class ActiveMQRepository
     {
         private Uri uri;
         private string queue;
