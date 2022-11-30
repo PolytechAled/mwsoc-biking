@@ -121,7 +121,6 @@
     <Compile Include="IBikingCache.cs" />
     <Compile Include="Cache\GenericProxyCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CacheRepository.cs" />
     <Compile Include="BikingCache.cs" />
   </ItemGroup>
   <ItemGroup>
