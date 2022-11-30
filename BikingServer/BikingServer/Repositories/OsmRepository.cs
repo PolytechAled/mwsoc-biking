@@ -1,4 +1,5 @@
-﻿using BikingServer.Models;
+﻿using BikingServer.BikingCache;
+using BikingServer.Models;
 using BikingServer.Models.Osm;
 using RestLib;
 using System;

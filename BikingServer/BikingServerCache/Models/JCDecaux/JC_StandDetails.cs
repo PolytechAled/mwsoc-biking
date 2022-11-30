@@ -26,8 +26,5 @@ namespace BikingServer.Models.JCDecaux
 
         [JsonPropertyName("electricalRemovableBatteryBikes")]
         public int ElectricalRemovableBatteryBikes { get; set; }
-
-        [JsonIgnore]
-        public int AvailableBike { get => MechanicalBikes+ElectricalBikes; }
     }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="bf03e9fa-e0b2-4b72-832d-d7a528c268db" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8734/Design_Time_Addresses/BikingServerCache/Service/?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="559aeffb-47cf-4ba3-9662-0cc21e156063" SourceId="1" SourceUrl="http://localhost:8734/Design_Time_Addresses/BikingServerCache/Service/?xsd=xsd1" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="22cad546-a211-4388-941f-a3fd5dfb82ad" SourceId="1" SourceUrl="http://localhost:8734/Design_Time_Addresses/BikingServerCache/Service/?xsd=xsd0" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="9135783b-a89c-47b3-891a-c23d8f189f6e" SourceId="1" SourceUrl="http://localhost:8734/Design_Time_Addresses/BikingServerCache/Service/?xsd=xsd3" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="65dccec1-f500-4038-b1e5-9269fd70d5f7" SourceId="1" SourceUrl="http://localhost:8734/Design_Time_Addresses/BikingServerCache/Service/?xsd=xsd2" />
+    <MetadataFile FileName="BikingCache.wsdl" MetadataType="Wsdl" ID="6c08eea3-a7a9-4b85-8f21-43a814b79f72" SourceId="1" SourceUrl="http://localhost:8734/Design_Time_Addresses/BikingServerCache/Service/?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

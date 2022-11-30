@@ -1,4 +1,6 @@
-﻿using BikingServer.Models;
+﻿using BikingServer.BikingCache;
+using BikingServer.Helpers;
+using BikingServer.Models;
 using BikingServer.Models.Osm;
 using BikingServer.Repositories;
 using RestLib;
@@ -20,11 +22,11 @@ namespace BikingServer
     {
 
         private OsmRepository osmRepository;
-        private JCDecauxRepository jcDecauxRepository;
+        private BikingCacheClient jcDecauxRepository;
     
         public BikingService()
         {
-            jcDecauxRepository = new JCDecauxRepository();
+            jcDecauxRepository = new BikingCacheClient();
             osmRepository = new OsmRepository();
         }
 
@@ -37,9 +39,9 @@ namespace BikingServer
             var startPosition = await osmRepository.GetPosition(startPoint);
             var endPosition = await osmRepository.GetPosition(endPoint);
 
-            var stationList = await jcDecauxRepository.GetStations();
+            var stationList = await jcDecauxRepository.GetJCStationsAsync();
 
-            var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike > 0).Min(s => s.Position.Distance(startPosition));
+            var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike() > 0).Min(s => s.Position.Distance(startPosition));
             var nearestStartStation = stationList.Where(s => s.Position.Distance(startPosition).Equals(nearestStartStationDistance)).First();
 
             var nearestEndStationDistance = stationList.Min(s => s.Position.Distance(endPosition));
