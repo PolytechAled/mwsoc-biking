@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ArrayOfNavigationStep", propOrder = {
+@XmlType(name = "ArrayOfNavigationStep", namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", propOrder = {
     "navigationStep"
 })
 public class ArrayOfNavigationStep {

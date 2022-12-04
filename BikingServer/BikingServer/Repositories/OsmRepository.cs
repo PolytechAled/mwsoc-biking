@@ -54,7 +54,7 @@ namespace BikingServer.Repositories
                 {"units","km" }
             };
 
-            JsonNode jsonReturnInfo = await client.PostRequest("v2/directions/"+ (isBicycle? "cycling-regular" : "foot-walking") +"/json", param);
+            JsonNode jsonReturnInfo = await client.PostRequest("v2/directions/" + (isBicycle ? "cycling-regular" : "foot-walking") + "/json", param);
             return JsonSerializer.Deserialize<List<OSM_Route>>(jsonReturnInfo["routes"]).FirstOrDefault();
         }
     }

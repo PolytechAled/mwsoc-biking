@@ -16,7 +16,7 @@ public class BikingManager {
 
     public void getPath(String start, String end){
         steps = bikingService.getBasicHttpBindingIBikingService().calculatePath(start,end);
-        if(event!=null) event.onNavigationChanged();
+        if(event!=null && steps!=null) event.onNavigationChanged();
     }
 
     public ArrayOfNavigationStep getSteps() {

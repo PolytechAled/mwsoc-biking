@@ -3,16 +3,9 @@ using BikingServer.Helpers;
 using BikingServer.Models;
 using BikingServer.Models.Osm;
 using BikingServer.Repositories;
-using RestLib;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace BikingServer
@@ -22,24 +15,25 @@ namespace BikingServer
     {
 
         private OsmRepository osmRepository;
-        private BikingCacheClient jcDecauxRepository;
+        private BikingCacheClient bikingCache;
+        private ActiveMQRepository activeMQRepository;
     
         public BikingService()
         {
-            jcDecauxRepository = new BikingCacheClient();
+            bikingCache = new BikingCacheClient();
             osmRepository = new OsmRepository();
+            activeMQRepository = new ActiveMQRepository();
         }
 
         public async Task<List<NavigationStep>> CalculatePath(string startPoint, string endPoint)
         {
-
             bool useBicycle = true;
             List<NavigationStep> steps = new List<NavigationStep>();
 
             var startPosition = await osmRepository.GetPosition(startPoint);
             var endPosition = await osmRepository.GetPosition(endPoint);
 
-            var stationList = await jcDecauxRepository.GetJCStationsAsync();
+            var stationList = await bikingCache.GetJCStationsAsync();
 
             var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike() > 0).Min(s => s.Position.Distance(startPosition));
             var nearestStartStation = stationList.Where(s => s.Position.Distance(startPosition).Equals(nearestStartStationDistance)).First();

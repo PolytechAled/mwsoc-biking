@@ -3,17 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServer", "BikingServer\BikingServer.csproj", "{A76D7B99-0947-4075-A930-4258B2191838}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82} = {B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServerCache", "BikingServerCache\BikingServerCache.csproj", "{5645402D-38BD-40B8-8827-ACCAAAE283F3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82} = {B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestLib", "RestLib\RestLib.csproj", "{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServer", "BikingServer\BikingServer.csproj", "{203CFCD5-9E72-43F3-801A-4147531A87E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikingServerCache", "BikingServerCache\BikingServerCache.csproj", "{14DE3AB6-5BB5-4770-9E71-05A38DCFE6D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A76D7B99-0947-4075-A930-4258B2191838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A76D7B99-0947-4075-A930-4258B2191838}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A76D7B99-0947-4075-A930-4258B2191838}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A76D7B99-0947-4075-A930-4258B2191838}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5645402D-38BD-40B8-8827-ACCAAAE283F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5645402D-38BD-40B8-8827-ACCAAAE283F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5645402D-38BD-40B8-8827-ACCAAAE283F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5645402D-38BD-40B8-8827-ACCAAAE283F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2DED2BC-E750-4C6B-9F97-22C1E4FFAA82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{203CFCD5-9E72-43F3-801A-4147531A87E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{203CFCD5-9E72-43F3-801A-4147531A87E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{203CFCD5-9E72-43F3-801A-4147531A87E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{203CFCD5-9E72-43F3-801A-4147531A87E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14DE3AB6-5BB5-4770-9E71-05A38DCFE6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DE3AB6-5BB5-4770-9E71-05A38DCFE6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14DE3AB6-5BB5-4770-9E71-05A38DCFE6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14DE3AB6-5BB5-4770-9E71-05A38DCFE6D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

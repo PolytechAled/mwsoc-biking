@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "NavigationStep", propOrder = {
+@XmlType(name = "NavigationStep", namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", propOrder = {
     "latitude",
     "longitude",
     "text"

@@ -6,17 +6,17 @@ using System.ServiceModel.Description;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikingServer
+namespace BikingServerCache
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Uri uri = new Uri("http://localhost:8733/BikingServer/Service");
+            Uri uri = new Uri("http://localhost:8733/BikingCache/Service");
 
-            using (ServiceHost host = new ServiceHost(typeof(BikingService), uri))
+            using (ServiceHost host = new ServiceHost(typeof(BikingCache), uri))
             {
-                host.AddServiceEndpoint(typeof(IBikingService), new BasicHttpBinding(), "");
+                host.AddServiceEndpoint(typeof(IBikingCache), new BasicHttpBinding(), "");
                 if (host.Description.Behaviors.Find<ServiceMetadataBehavior>() == null)
                 {
                     ServiceMetadataBehavior behavior = new ServiceMetadataBehavior();
@@ -26,7 +26,7 @@ namespace BikingServer
                 }
                 host.Opened += delegate
                 {
-                    Console.WriteLine("BikingService is running！"); 
+                    Console.WriteLine("BikingCache is running！");
                 };
 
                 host.Open();

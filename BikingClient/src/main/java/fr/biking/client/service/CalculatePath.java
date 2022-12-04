@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
     "startPoint",
     "endPoint"
 })
-@XmlRootElement(name = "CalculatePath", namespace = "http://tempuri.org/")
+@XmlRootElement(name = "CalculatePath")
 public class CalculatePath {
 
     @XmlElementRef(name = "startPoint", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)

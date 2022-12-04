@@ -6,12 +6,12 @@ public class MainPanel extends JPanel {
 
     private SearchPanel searchPanel;
     private StepsPanel stepsPanel;
-    private MapPanel mapPanel;
+    //private MapPanel mapPanel;
 
     public MainPanel() {
         this.searchPanel = new SearchPanel();
         this.stepsPanel = new StepsPanel();
-        this.mapPanel = new MapPanel();
+        //this.mapPanel = new MapPanel();
 
         BoxLayout mainLayout = new BoxLayout(this, BoxLayout.X_AXIS);
         setLayout(mainLayout);
@@ -24,7 +24,7 @@ public class MainPanel extends JPanel {
 
         setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         add(leftPanel);
-        add(this.mapPanel);
+        //add(this.mapPanel);
     }
 
 }
