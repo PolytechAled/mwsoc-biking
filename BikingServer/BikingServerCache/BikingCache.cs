@@ -18,11 +18,11 @@ namespace BikingServerCache
         
         public BikingCache()
         {
-            cacheJC = new GenericProxyCache<JCDecauxItem>();
+            cacheJC = Program.JC_CACHE_INSTANCE;
         }
         public List<JC_Station> GetJCStations()
         {
-            return cacheJC.Get("jc",30).GetStations();
+            return cacheJC.Get("jc",120).GetStations();
         }
     }
 }

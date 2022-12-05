@@ -51,7 +51,9 @@ namespace BikingServerCache.Models
         {
             T obj = new T();
             obj.Init().Wait();
-            cache.Set(CacheItemName, obj, expirationTime);
+            CacheItemPolicy policy = new CacheItemPolicy();
+            policy.AbsoluteExpiration = expirationTime;
+            cache.Set(CacheItemName, obj, policy);
             return obj;
         }
     }

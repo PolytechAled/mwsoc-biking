@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BikingServerCache.Cache;
+using BikingServerCache.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -8,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace BikingServerCache
 {
-    internal class Program
+    public class Program
     {
+        public static GenericProxyCache<JCDecauxItem> JC_CACHE_INSTANCE = new GenericProxyCache<JCDecauxItem>();
+
         static void Main(string[] args)
         {
             Uri uri = new Uri("http://localhost:8733/BikingCache/Service");
