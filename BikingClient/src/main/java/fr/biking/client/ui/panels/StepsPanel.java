@@ -7,7 +7,6 @@ import fr.biking.client.service.NavigationAnswer;
 import fr.biking.client.service.NavigationError;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class StepsPanel extends JPanel implements IBikingEvent {
 
@@ -16,7 +15,7 @@ public class StepsPanel extends JPanel implements IBikingEvent {
     private String stepQueueId;
 
     public StepsPanel() {
-        BikingManager.instance.setHandler(this);
+        BikingManager.instance.addHandler(this);
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
         setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));

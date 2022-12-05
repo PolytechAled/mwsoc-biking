@@ -1,7 +1,10 @@
 package fr.biking.client.ui.panels;
 
 
-import fr.biking.client.ui.utils.RoutePainter;
+import fr.biking.client.BikingManager;
+import fr.biking.client.IBikingEvent;
+import fr.biking.client.service.NavigationAnswer;
+import fr.biking.client.service.NavigationError;
 import fr.biking.client.ui.utils.SelectionAdapter;
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;
@@ -23,13 +26,15 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class MapPanel extends JPanel {
+public class MapPanel extends JPanel implements IBikingEvent {
 
     private JXMapViewer mapViewer;
     private List<GeoPosition> waypoints;
 
     public MapPanel() {
+        BikingManager.instance.addHandler(this);
         this.waypoints = new ArrayList<>();
 
         TileFactoryInfo info = new OSMTileFactoryInfo();
@@ -38,47 +43,12 @@ public class MapPanel extends JPanel {
         mapViewer = new JXMapViewer();
         mapViewer.setTileFactory(tileFactory);
 
-        GeoPosition frankfurt = new GeoPosition(50,  7, 0, 8, 41, 0);
-        GeoPosition wiesbaden = new GeoPosition(50,  5, 0, 8, 14, 0);
-        GeoPosition mainz     = new GeoPosition(50,  0, 0, 8, 16, 0);
-        GeoPosition darmstadt = new GeoPosition(49, 52, 0, 8, 39, 0);
-        GeoPosition offenbach = new GeoPosition(50,  6, 0, 8, 46, 0);
-
-        // Create a track from the geo-positions
-        List<GeoPosition> track = Arrays.asList(frankfurt, wiesbaden, mainz, darmstadt, offenbach);
-        RoutePainter routePainter = new RoutePainter(track);
-
-        Set<Waypoint> waypoints = new HashSet<Waypoint>(Arrays.asList(
-                new DefaultWaypoint(frankfurt),
-                new DefaultWaypoint(wiesbaden),
-                new DefaultWaypoint(mainz),
-                new DefaultWaypoint(darmstadt),
-                new DefaultWaypoint(offenbach)));
-
-        // Create a waypoint painter that takes all the waypoints
-        WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<Waypoint>();
-        waypointPainter.setWaypoints(waypoints);
-
-        // Create a compound painter that uses both the route-painter and the waypoint-painter
-        List<Painter<JXMapViewer>> painters = new ArrayList<Painter<JXMapViewer>>();
-        painters.add(routePainter);
-        painters.add(waypointPainter);
-
-        CompoundPainter<JXMapViewer> painter = new CompoundPainter<JXMapViewer>(painters);
-        mapViewer.setOverlayPainter(painter);
-
-        // Set the focus
-        mapViewer.zoomToBestFit(new HashSet<GeoPosition>(track), 0.7);
-
         // Add interactions
         MouseInputListener mia = new PanMouseInputListener(mapViewer);
         mapViewer.addMouseListener(mia);
         mapViewer.addMouseMotionListener(mia);
-
         mapViewer.addMouseListener(new CenterMapListener(mapViewer));
-
         mapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(mapViewer));
-
         mapViewer.addKeyListener(new PanKeyListener(mapViewer));
 
         // Add a selection painter
@@ -93,12 +63,45 @@ public class MapPanel extends JPanel {
         add(mapViewer);
     }
 
-    public void addWaypoint(double latitude, double longitude) {
+    private void addWaypoint(double latitude, double longitude) {
         waypoints.add(new GeoPosition(latitude, longitude));
+    }
+
+    private void drawWaypoints() {
+        if (waypoints != null && !waypoints.isEmpty()) {
+            Set<Waypoint> waypoints = this.waypoints.stream().map(DefaultWaypoint::new).collect(Collectors.toSet());
+
+            WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
+            waypointPainter.setWaypoints(waypoints);
+
+            List<Painter<JXMapViewer>> painters = new ArrayList<Painter<JXMapViewer>>();
+            painters.add(waypointPainter);
+
+            CompoundPainter<JXMapViewer> painter = new CompoundPainter<JXMapViewer>(painters);
+            mapViewer.setOverlayPainter(painter);
+
+            // Set the focus
+            mapViewer.setAddressLocation(this.waypoints.get(0));
+            mapViewer.zoomToBestFit(new HashSet<>(this.waypoints), 0.7);
+        }
     }
 
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(600, 600);
+    }
+
+    @Override
+    public void onNavigationChanged(NavigationAnswer navigationAnswer) {
+        this.waypoints.clear();
+
+        if (navigationAnswer.getError().equals(NavigationError.SUCCESS)) {
+            if (!navigationAnswer.getInterestPoints().isNil()) {
+                for(var ip : navigationAnswer.getInterestPoints().getValue().getInterestPoint()) {
+                    addWaypoint(ip.getLatitude(), ip.getLongitude());
+                }
+                drawWaypoints();
+            }
+        }
     }
 }

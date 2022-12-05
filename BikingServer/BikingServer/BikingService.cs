@@ -35,22 +35,26 @@ namespace BikingServer
             {
                 bool useBicycle = true;
 
+                // Get position from user input addresses
                 var startPosition = await osmRepository.GetPosition(startPoint);
-
                 var endPosition = await osmRepository.GetPosition(endPoint);
 
+                // Get the bicycle stations from proxy cache
                 var stationList = await bikingCache.GetJCStationsAsync();
 
+                // Get the nearest stations to the start and end point
                 var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike() > 0).Min(s => s.Position.Distance(startPosition));
                 var nearestStartStation = stationList.Where(s => s.Position.Distance(startPosition).Equals(nearestStartStationDistance)).First();
-
                 var nearestEndStationDistance = stationList.Min(s => s.Position.Distance(endPosition));
                 var nearestEndStation = stationList.Where(s => s.Position.Distance(endPosition).Equals(nearestEndStationDistance)).First();
 
+                // Check if the start station if the last station
                 if (nearestStartStation==nearestEndStation) useBicycle=false;
 
+                // Calculate footpath
                 var footPath = await osmRepository.GetNavigation(startPosition, endPosition, false);
 
+                // Calculate path with bicycle
                 List<OSM_Route> cyclePath = new List<OSM_Route>();
                 cyclePath.Add(await osmRepository.GetNavigation(startPosition, nearestStartStation.Position, false));
                 cyclePath.Add(await osmRepository.GetNavigation(nearestStartStation.Position, nearestEndStation.Position, true));
@@ -58,9 +62,10 @@ namespace BikingServer
 
                 double durationBicycle = cyclePath.Sum(s => s.Segments[0].Duration);
 
+                // Check which is faster between foot and bicycle
                 if (footPath.Segments[0].Duration <= durationBicycle) useBicycle = false;
 
-
+                // Determine steps
                 List<NavigationStep> steps = new List<NavigationStep>();
                 if (useBicycle)
                 {
@@ -86,9 +91,23 @@ namespace BikingServer
                     }).ToList();
                 }
 
+                // Fill answer infos
                 answer.QueueName = activeMQRepository.GetRandomQueueName();
                 answer.UseBicycle = useBicycle;
                 answer.StepCount = steps.Count;
+
+                // Interest point for answer
+                answer.InterestPoints = new List<InterestPoint> {
+                    new InterestPoint() { Latitude = startPosition.Latitude, Longitude = startPosition.Longitude, IsStand = false },
+                };
+                if (useBicycle)
+                {
+                    answer.InterestPoints.Add(new InterestPoint() { Latitude = nearestStartStation.Position.Latitude, Longitude = nearestStartStation.Position.Longitude, IsStand = true });
+                    answer.InterestPoints.Add(new InterestPoint() { Latitude = nearestEndStation.Position.Latitude, Longitude = nearestEndStation.Position.Longitude, IsStand = true });
+                }
+                answer.InterestPoints.Add(new InterestPoint() { Latitude = endPosition.Latitude, Longitude = endPosition.Longitude, IsStand = false });
+                
+                // Push step to activemq
                 foreach(var step in steps)
                 {
                     activeMQRepository.SendMessageInQueue(answer.QueueName, step.Text);

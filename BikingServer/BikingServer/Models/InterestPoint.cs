@@ -12,6 +12,9 @@ namespace BikingServer.Models
     public class InterestPoint : GeoCoordinate
     {
         [DataMember]
+        public bool IsStand { get; set; }
+
+        [DataMember]
         public string Description { get; set; }
     }
 }
