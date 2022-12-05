@@ -28,13 +28,13 @@ public interface IBikingService {
      * @param endPoint
      * @param startPoint
      * @return
-     *     returns fr.biking.client.service.ArrayOfNavigationStep
+     *     returns fr.biking.client.service.NavigationAnswer
      */
     @WebMethod(operationName = "CalculatePath", action = "http://tempuri.org/IBikingService/CalculatePath")
     @WebResult(name = "CalculatePathResult", targetNamespace = "http://tempuri.org/")
     @RequestWrapper(localName = "CalculatePath", targetNamespace = "http://tempuri.org/", className = "fr.biking.client.service.CalculatePath")
     @ResponseWrapper(localName = "CalculatePathResponse", targetNamespace = "http://tempuri.org/", className = "fr.biking.client.service.CalculatePathResponse")
-    public ArrayOfNavigationStep calculatePath(
+    public NavigationAnswer calculatePath(
         @WebParam(name = "startPoint", targetNamespace = "http://tempuri.org/")
         String startPoint,
         @WebParam(name = "endPoint", targetNamespace = "http://tempuri.org/")

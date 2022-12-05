@@ -14,7 +14,7 @@ namespace BikingServer
     public interface IBikingService
     {
         [OperationContract]
-        Task<List<NavigationStep>> CalculatePath(string startPoint, string endPoint);
+        Task<NavigationAnswer> CalculatePath(string startPoint, string endPoint);
     }
 
 }

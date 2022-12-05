@@ -24,14 +24,19 @@ namespace BikingServer
             activeMQRepository = new ActiveMQRepository();
         }
 
-        public async Task<List<NavigationStep>> CalculatePath(string startPoint, string endPoint)
+        public async Task<NavigationAnswer> CalculatePath(string startPoint, string endPoint)
         {
+            NavigationAnswer answer = new NavigationAnswer
+            {
+                Error = NavigationError.SUCCESS
+            };
+
             try
             {
                 bool useBicycle = true;
-                List<NavigationStep> steps = new List<NavigationStep>();
 
                 var startPosition = await osmRepository.GetPosition(startPoint);
+
                 var endPosition = await osmRepository.GetPosition(endPoint);
 
                 var stationList = await bikingCache.GetJCStationsAsync();
@@ -55,6 +60,8 @@ namespace BikingServer
 
                 if (footPath.Segments[0].Duration <= durationBicycle) useBicycle = false;
 
+
+                List<NavigationStep> steps = new List<NavigationStep>();
                 if (useBicycle)
                 {
                     steps = cyclePath.Select(s => s.Segments[0].Steps.Select(p => new NavigationStep()
@@ -79,13 +86,21 @@ namespace BikingServer
                     }).ToList();
                 }
 
-                return steps;
+                answer.QueueName = activeMQRepository.GetRandomQueueName();
+                answer.UseBicycle = useBicycle;
+                answer.StepCount = steps.Count;
+                foreach(var step in steps)
+                {
+                    activeMQRepository.SendMessageInQueue(answer.QueueName, step.Text);
+                }
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return new List<NavigationStep>();
+                answer.Error = NavigationError.INTERNAL_ERROR;
+                answer.ErrorDetails = ex.Message;
             }
+
+            return answer;
         }
     }
 }

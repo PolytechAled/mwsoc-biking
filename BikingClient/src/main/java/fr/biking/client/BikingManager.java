@@ -1,13 +1,13 @@
 package fr.biking.client;
 
-import fr.biking.client.service.ArrayOfNavigationStep;
 import fr.biking.client.service.BikingService;
+import fr.biking.client.service.NavigationAnswer;
 
 public class BikingManager {
 
     public static final BikingManager instance = new BikingManager();
     private BikingService bikingService;
-    private ArrayOfNavigationStep steps;
+    private NavigationAnswer answer;
     private IBikingEvent event;
 
     public BikingManager() {
@@ -15,12 +15,12 @@ public class BikingManager {
     }
 
     public void getPath(String start, String end){
-        steps = bikingService.getBasicHttpBindingIBikingService().calculatePath(start,end);
-        if(event!=null && steps!=null) event.onNavigationChanged();
+        answer = bikingService.getBasicHttpBindingIBikingService().calculatePath(start,end);
+        if(event!=null && answer!=null) event.onNavigationChanged(answer);
     }
 
-    public ArrayOfNavigationStep getSteps() {
-        return steps;
+    public NavigationAnswer getAnswer() {
+        return answer;
     }
 
     public void setHandler(IBikingEvent iBikingEvent){

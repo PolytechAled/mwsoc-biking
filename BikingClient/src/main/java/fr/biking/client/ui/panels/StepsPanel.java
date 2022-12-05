@@ -2,13 +2,18 @@ package fr.biking.client.ui.panels;
 
 import fr.biking.client.BikingManager;
 import fr.biking.client.IBikingEvent;
+import fr.biking.client.activemq.ActiveMqClient;
+import fr.biking.client.service.NavigationAnswer;
+import fr.biking.client.service.NavigationError;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class StepsPanel extends JPanel implements IBikingEvent {
 
-    private TextArea textArea;
+    private JLabel infoLabel;
+    private JLabel stepLabel;
+    private String stepQueueId;
 
     public StepsPanel() {
         BikingManager.instance.setHandler(this);
@@ -16,17 +21,32 @@ public class StepsPanel extends JPanel implements IBikingEvent {
         setLayout(layout);
         setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
-        add(new JLabel("Steps:"));
-        textArea = new TextArea();
-        add(textArea);
+        infoLabel = new JLabel("Infos: None");
+        add(infoLabel);
+        stepLabel = new JLabel("Next step: None");
+        add(stepLabel);
+
+        JButton nextStepBtn = new JButton("Next step");
+        nextStepBtn.addActionListener((s) -> showNextStep());
+        add(nextStepBtn);
     }
 
     @Override
-    public void onNavigationChanged() {
-        String text = "";
-        for(var step : BikingManager.instance.getSteps().getNavigationStep()){
-            text+=step.getText().getValue()+"\n";
+    public void onNavigationChanged(NavigationAnswer navigationAnswer) {
+       infoLabel.setText("Infos:\nUse bicycle: " + navigationAnswer.isUseBicycle());
+
+       if (navigationAnswer.getError().equals(NavigationError.SUCCESS)) {
+           stepQueueId = navigationAnswer.getQueueName().getValue();
+           showNextStep();
+       }
+    }
+
+    private void showNextStep() {
+        if (stepQueueId != null && !stepQueueId.isEmpty() && !stepQueueId.isBlank()) {
+            String text = ActiveMqClient.INSTANCE.getNextQueueMessage(stepQueueId);
+            if (text != null) {
+                stepLabel.setText(text);
+            }
         }
-        textArea.setText(text);
     }
 }

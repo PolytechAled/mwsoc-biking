@@ -33,5 +33,11 @@ namespace BikingServer.Repositories
             ITextMessage msg = session.CreateTextMessage(message);
             messageProducer?.Send(msg);
         }
+
+        public string GetRandomQueueName()
+        {
+            Guid uuid = Guid.NewGuid();
+            return uuid.ToString();
+        }
     }
 }

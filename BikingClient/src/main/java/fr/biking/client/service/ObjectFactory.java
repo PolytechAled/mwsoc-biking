@@ -28,8 +28,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _ArrayOfNavigationStep_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "ArrayOfNavigationStep");
-    private final static QName _NavigationStep_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "NavigationStep");
+    private final static QName _NavigationAnswer_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "NavigationAnswer");
+    private final static QName _NavigationError_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "NavigationError");
+    private final static QName _ArrayOfInterestPoint_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "ArrayOfInterestPoint");
+    private final static QName _InterestPoint_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "InterestPoint");
+    private final static QName _GeoCoordinate_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "GeoCoordinate");
     private final static QName _AnyType_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyType");
     private final static QName _AnyURI_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyURI");
     private final static QName _Base64Binary_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "base64Binary");
@@ -54,7 +57,10 @@ public class ObjectFactory {
     private final static QName _CalculatePathStartPoint_QNAME = new QName("http://tempuri.org/", "startPoint");
     private final static QName _CalculatePathEndPoint_QNAME = new QName("http://tempuri.org/", "endPoint");
     private final static QName _CalculatePathResponseCalculatePathResult_QNAME = new QName("http://tempuri.org/", "CalculatePathResult");
-    private final static QName _NavigationStepText_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "Text");
+    private final static QName _InterestPointDescription_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "Description");
+    private final static QName _NavigationAnswerErrorDetails_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "ErrorDetails");
+    private final static QName _NavigationAnswerInterestPoints_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "InterestPoints");
+    private final static QName _NavigationAnswerQueueName_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "QueueName");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: fr.biking.client.service
@@ -80,45 +86,100 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ArrayOfNavigationStep }
+     * Create an instance of {@link NavigationAnswer }
      * 
      */
-    public ArrayOfNavigationStep createArrayOfNavigationStep() {
-        return new ArrayOfNavigationStep();
+    public NavigationAnswer createNavigationAnswer() {
+        return new NavigationAnswer();
     }
 
     /**
-     * Create an instance of {@link NavigationStep }
+     * Create an instance of {@link ArrayOfInterestPoint }
      * 
      */
-    public NavigationStep createNavigationStep() {
-        return new NavigationStep();
+    public ArrayOfInterestPoint createArrayOfInterestPoint() {
+        return new ArrayOfInterestPoint();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfNavigationStep }{@code >}
+     * Create an instance of {@link InterestPoint }
+     * 
+     */
+    public InterestPoint createInterestPoint() {
+        return new InterestPoint();
+    }
+
+    /**
+     * Create an instance of {@link GeoCoordinate }
+     * 
+     */
+    public GeoCoordinate createGeoCoordinate() {
+        return new GeoCoordinate();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link NavigationAnswer }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfNavigationStep }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link NavigationAnswer }{@code >}
      */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "ArrayOfNavigationStep")
-    public JAXBElement<ArrayOfNavigationStep> createArrayOfNavigationStep(ArrayOfNavigationStep value) {
-        return new JAXBElement<ArrayOfNavigationStep>(_ArrayOfNavigationStep_QNAME, ArrayOfNavigationStep.class, null, value);
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "NavigationAnswer")
+    public JAXBElement<NavigationAnswer> createNavigationAnswer(NavigationAnswer value) {
+        return new JAXBElement<NavigationAnswer>(_NavigationAnswer_QNAME, NavigationAnswer.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link NavigationStep }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link NavigationError }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link NavigationStep }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link NavigationError }{@code >}
      */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "NavigationStep")
-    public JAXBElement<NavigationStep> createNavigationStep(NavigationStep value) {
-        return new JAXBElement<NavigationStep>(_NavigationStep_QNAME, NavigationStep.class, null, value);
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "NavigationError")
+    public JAXBElement<NavigationError> createNavigationError(NavigationError value) {
+        return new JAXBElement<NavigationError>(_NavigationError_QNAME, NavigationError.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfInterestPoint }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfInterestPoint }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "ArrayOfInterestPoint")
+    public JAXBElement<ArrayOfInterestPoint> createArrayOfInterestPoint(ArrayOfInterestPoint value) {
+        return new JAXBElement<ArrayOfInterestPoint>(_ArrayOfInterestPoint_QNAME, ArrayOfInterestPoint.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InterestPoint }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link InterestPoint }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "InterestPoint")
+    public JAXBElement<InterestPoint> createInterestPoint(InterestPoint value) {
+        return new JAXBElement<InterestPoint>(_InterestPoint_QNAME, InterestPoint.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GeoCoordinate }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GeoCoordinate }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "GeoCoordinate")
+    public JAXBElement<GeoCoordinate> createGeoCoordinate(GeoCoordinate value) {
+        return new JAXBElement<GeoCoordinate>(_GeoCoordinate_QNAME, GeoCoordinate.class, null, value);
     }
 
     /**
@@ -421,16 +482,16 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfNavigationStep }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link NavigationAnswer }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfNavigationStep }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link NavigationAnswer }{@code >}
      */
     @XmlElementDecl(namespace = "http://tempuri.org/", name = "CalculatePathResult", scope = CalculatePathResponse.class)
-    public JAXBElement<ArrayOfNavigationStep> createCalculatePathResponseCalculatePathResult(ArrayOfNavigationStep value) {
-        return new JAXBElement<ArrayOfNavigationStep>(_CalculatePathResponseCalculatePathResult_QNAME, ArrayOfNavigationStep.class, CalculatePathResponse.class, value);
+    public JAXBElement<NavigationAnswer> createCalculatePathResponseCalculatePathResult(NavigationAnswer value) {
+        return new JAXBElement<NavigationAnswer>(_CalculatePathResponseCalculatePathResult_QNAME, NavigationAnswer.class, CalculatePathResponse.class, value);
     }
 
     /**
@@ -441,9 +502,48 @@ public class ObjectFactory {
      * @return
      *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "Text", scope = NavigationStep.class)
-    public JAXBElement<String> createNavigationStepText(String value) {
-        return new JAXBElement<String>(_NavigationStepText_QNAME, String.class, NavigationStep.class, value);
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "Description", scope = InterestPoint.class)
+    public JAXBElement<String> createInterestPointDescription(String value) {
+        return new JAXBElement<String>(_InterestPointDescription_QNAME, String.class, InterestPoint.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "ErrorDetails", scope = NavigationAnswer.class)
+    public JAXBElement<String> createNavigationAnswerErrorDetails(String value) {
+        return new JAXBElement<String>(_NavigationAnswerErrorDetails_QNAME, String.class, NavigationAnswer.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfInterestPoint }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfInterestPoint }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "InterestPoints", scope = NavigationAnswer.class)
+    public JAXBElement<ArrayOfInterestPoint> createNavigationAnswerInterestPoints(ArrayOfInterestPoint value) {
+        return new JAXBElement<ArrayOfInterestPoint>(_NavigationAnswerInterestPoints_QNAME, ArrayOfInterestPoint.class, NavigationAnswer.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "QueueName", scope = NavigationAnswer.class)
+    public JAXBElement<String> createNavigationAnswerQueueName(String value) {
+        return new JAXBElement<String>(_NavigationAnswerQueueName_QNAME, String.class, NavigationAnswer.class, value);
     }
 
 }

@@ -99,6 +99,9 @@
     <Compile Include="Helpers\GeoCoordinateExtension.cs" />
     <Compile Include="Helpers\JC_StandDetailExtension.cs" />
     <Compile Include="IBikingService.cs" />
+    <Compile Include="Models\InterestPoint.cs" />
+    <Compile Include="Models\NavigationAnswer.cs" />
+    <Compile Include="Models\NavigationError.cs" />
     <Compile Include="Models\NavigationStep.cs" />
     <Compile Include="Models\Osm\OSM_Route.cs" />
     <Compile Include="Models\Osm\OSM_Segment.cs" />
