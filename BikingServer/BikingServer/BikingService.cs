@@ -31,6 +31,8 @@ namespace BikingServer
                 Error = NavigationError.SUCCESS
             };
 
+            bool noPathFound = false;
+
             try
             {
                 bool useBicycle = true;
@@ -81,14 +83,38 @@ namespace BikingServer
                 // Check if the start station if the last station
                 if (nearestStartStation==nearestEndStation) useBicycle=false;
 
-                // Calculate footpath
-                var footPath = await osmRepository.GetNavigation(startPosition, endPosition, false);
+                OSM_Route footPath = null;
+                try
+                {
+                    footPath = await osmRepository.GetNavigation(startPosition, endPosition, false);
+                }
+                catch
+                {
+                    Console.WriteLine("The foot path doesn't exist");
+                }
+
 
                 // Calculate path with bicycle
-                List<OSM_Route> cyclePath = new List<OSM_Route>();
-                cyclePath.Add(await osmRepository.GetNavigation(startPosition, nearestStartStation.Position, false));
-                cyclePath.Add(await osmRepository.GetNavigation(nearestStartStation.Position, nearestEndStation.Position, true));
-                cyclePath.Add(await osmRepository.GetNavigation(nearestEndStation.Position, endPosition, false));
+                List<OSM_Route> cyclePath = null;
+                try
+                {
+                    cyclePath = new List<OSM_Route>();
+                    cyclePath.Add(await osmRepository.GetNavigation(startPosition, nearestStartStation.Position, false));
+                    cyclePath.Add(await osmRepository.GetNavigation(nearestStartStation.Position, nearestEndStation.Position, true));
+                    cyclePath.Add(await osmRepository.GetNavigation(nearestEndStation.Position, endPosition, false));
+                }
+                catch
+                {
+                    Console.WriteLine("The bicycle path doesn't exist");
+                    noPathFound = true;
+                }
+                
+                if(footPath == null && noPathFound)
+                {
+                    answer.Error = NavigationError.NO_PATH_FOUND;
+                    answer.ErrorDetails = "No path exist with pedestrian or bicycle";
+                    return answer;
+                }
 
                 double durationBicycle = cyclePath.Sum(s => s.Segments[0].Duration);
 
