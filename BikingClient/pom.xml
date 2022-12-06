@@ -21,6 +21,7 @@
             <version>2.3.3</version>
             <type>pom</type>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-core -->
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -52,6 +53,10 @@
                                         fr.biking.client.BikingClient
                                     </mainClass>
                                 </manifest>
+                                <manifestEntries>
+                                    <!-- This fixed the CatalogManager exception problem -->
+                                    <Multi-Release>true</Multi-Release>
+                                </manifestEntries>
                             </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
