@@ -16,7 +16,9 @@ public class SearchPanel extends JPanel {
         JTextField toField = new JTextField();
         JButton goButton = new JButton("Check path");
         goButton.addActionListener(l -> {
-            BikingManager.instance.getPath(fromField.getText(),toField.getText());
+            if (!BikingManager.instance.getPath(fromField.getText(),toField.getText())) {
+                JOptionPane.showMessageDialog(null, "Unable to contact server", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         add(new JLabel("Start:"));

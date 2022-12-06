@@ -11,19 +11,29 @@ public class ActiveMqClient {
     public static ActiveMqClient INSTANCE = new ActiveMqClient();
 
     private Connection connection;
+    private boolean isConnected;
 
     public ActiveMqClient() {
+        isConnected = false;
+    }
+
+    private void connect() {
         try {
             ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URI);
             connection = connectionFactory.createConnection();
             connection.start();
+            isConnected = true;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println(ex.getMessage());
+            isConnected = false;
         }
     }
 
     public String getNextQueueMessage(String queueId) {
         try {
+            if (!isConnected) connect();
+            if (!isConnected) return null;
+
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             Destination destination = session.createQueue(queueId);
             MessageConsumer consumer = session.createConsumer(destination);
@@ -35,7 +45,7 @@ public class ActiveMqClient {
                 TextMessage textMessage = (TextMessage) message;
                 return textMessage.getText();
             }
-        } catch (JMSException e) {
+        } catch (Exception ignored) {
             return null;
         }
         return null;

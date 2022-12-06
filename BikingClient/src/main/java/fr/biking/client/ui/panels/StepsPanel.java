@@ -16,12 +16,11 @@ import java.util.Objects;
 
 public class StepsPanel extends JPanel implements IBikingEvent {
 
-    private JLabel infoLabel;
-    private JLabel stepLabel;
-    private JLabel stepCountLabel;
-    private JLabel bicycleLabel;
-    private JFrame stepFrame;
-    private JButton nextStepBtn;
+    private final JLabel stepLabel;
+    private final JLabel stepCountLabel;
+    private final JLabel bicycleLabel;
+    private final JFrame stepFrame;
+    private final JButton nextStepBtn;
     private int totalStepCount;
     private int currentStep;
     private String stepQueueId;
@@ -35,7 +34,7 @@ public class StepsPanel extends JPanel implements IBikingEvent {
 
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        infoLabel = new JLabel("Infos:");
+        JLabel infoLabel = new JLabel("Infos:");
         add(infoLabel);
 
         try {
