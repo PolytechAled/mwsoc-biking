@@ -26,35 +26,49 @@ namespace BikingServer.Repositories
 
         public async Task<GeoCoordinate> GetPosition(string address)
         {
-
-            Dictionary<string, string> param = new Dictionary<string, string>()
+            try
             {
-                { "text", address },
-            };
+                Dictionary<string, string> param = new Dictionary<string, string>()
+                {
+                    { "text", address },
+                };
 
-            var jsonNode = await client.GetRequest("geocode/search", param);
-            return new GeoCoordinate()
+                var jsonNode = await client.GetRequest("geocode/search", param);
+                return new GeoCoordinate()
+                {
+                    Longitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][0],
+                    Latitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][1]
+                };
+            }
+            catch
             {
-                Longitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][0],
-                Latitude = (double)jsonNode["features"][0]["geometry"]["coordinates"][1]
-            };
+                return null;
+            }
         }
 
         public async Task<OSM_Route> GetNavigation(GeoCoordinate start, GeoCoordinate end, bool isBicycle = false)
         {
-            List<double[]> coords = new List<double[]>();
-            coords.Add(new double[] { start.Longitude, start.Latitude });
-            coords.Add(new double[] { end.Longitude, end.Latitude });
-
-            Dictionary<string, object> param = new Dictionary<string, object>()
+            try
             {
-                {"coordinates", coords },
-                {"language","fr-fr" },
-                {"units","km" }
-            };
+                List<double[]> coords = new List<double[]>();
+                coords.Add(new double[] { start.Longitude, start.Latitude });
+                coords.Add(new double[] { end.Longitude, end.Latitude });
 
-            JsonNode jsonReturnInfo = await client.PostRequest("v2/directions/" + (isBicycle ? "cycling-regular" : "foot-walking") + "/json", param);
-            return JsonSerializer.Deserialize<List<OSM_Route>>(jsonReturnInfo["routes"]).FirstOrDefault();
+                Dictionary<string, object> param = new Dictionary<string, object>()
+                {
+                    {"coordinates", coords },
+                    {"language","fr-fr" },
+                    {"units","km" }
+                };
+
+                JsonNode jsonReturnInfo = await client.PostRequest("v2/directions/" + (isBicycle ? "cycling-regular" : "foot-walking") + "/json", param);
+                return JsonSerializer.Deserialize<List<OSM_Route>>(jsonReturnInfo["routes"]).FirstOrDefault();
+            }
+            catch
+            {
+                Console.WriteLine("The path doesn't exist");
+                return null;
+            }
         }
     }
 }

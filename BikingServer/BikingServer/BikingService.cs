@@ -28,7 +28,8 @@ namespace BikingServer
         {
             NavigationAnswer answer = new NavigationAnswer
             {
-                Error = NavigationError.SUCCESS
+                Error = NavigationError.SUCCESS,
+                InterestPoints = new List<InterestPoint>()
             };
 
             bool noPathFound = false;
@@ -36,90 +37,90 @@ namespace BikingServer
             try
             {
                 bool useBicycle = true;
-                GeoCoordinate startPosition = null;
-                GeoCoordinate endPosition = null ;
-
-                try
-                {
-                    // Get position for user start address
-                    startPosition = await osmRepository.GetPosition(startPoint);
-                    if(startPosition == null)
-                    {
-                        throw new Exception();
-                    }
-                }
-                catch
+                GeoCoordinate startPosition = await osmRepository.GetPosition(startPoint);
+                if (startPosition == null)
                 {
                     answer.Error = NavigationError.NO_LOCATION_FOUND;
                     answer.ErrorDetails = "The starting point was not recognized";
                     return answer;
                 }
-
-                try
+                else
                 {
-                    endPosition = await osmRepository.GetPosition(endPoint);
-                    if(endPosition == null)
-                    {
-                        throw new Exception();
-                    }
+                    answer.InterestPoints.Add(new InterestPoint() { Latitude = startPosition.Latitude, Longitude = startPosition.Longitude, IsStand = false });
                 }
-                // Get position for user end address
-                catch
+
+                GeoCoordinate endPosition = await osmRepository.GetPosition(endPoint); ;
+                if (endPosition == null)
                 {
                     answer.Error = NavigationError.NO_LOCATION_FOUND;
-                    answer.ErrorDetails = "The end point was not recognized";
+                    answer.ErrorDetails = "The ending point was not recognized";
                     return answer;
                 }
 
-                 // Get the bicycle stations from proxy cache
+
+                // Get the bicycle stations from proxy cache
                 var stationList = await bikingCache.GetJCStationsAsync();
+                if (stationList != null && stationList.Length > 0) useBicycle = false;
 
-                // Get the nearest stations to the start and end point
-                var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike() > 0).Min(s => s.Position.Distance(startPosition));
-                var nearestStartStation = stationList.Where(s => s.Position.Distance(startPosition).Equals(nearestStartStationDistance)).First();
-                var nearestEndStationDistance = stationList.Min(s => s.Position.Distance(endPosition));
-                var nearestEndStation = stationList.Where(s => s.Position.Distance(endPosition).Equals(nearestEndStationDistance)).First();
 
-                // Check if the start station if the last station
-                if (nearestStartStation==nearestEndStation) useBicycle=false;
+                List<OSM_Route> cyclePath = new List<OSM_Route>();
+                OSM_Route footPath = await osmRepository.GetNavigation(startPosition, endPosition, false);
 
-                OSM_Route footPath = null;
-                try
+                if (useBicycle)
                 {
-                    footPath = await osmRepository.GetNavigation(startPosition, endPosition, false);
-                }
-                catch
-                {
-                    Console.WriteLine("The foot path doesn't exist");
-                }
+                    // Get the nearest stations to the start and end point
+                    var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike() > 0).Min(s => s.Position.Distance(startPosition));
+                    var nearestStartStation = stationList.Where(s => s.Position.Distance(startPosition).Equals(nearestStartStationDistance)).First();
+                    var nearestEndStationDistance = stationList.Min(s => s.Position.Distance(endPosition));
+                    var nearestEndStation = stationList.Where(s => s.Position.Distance(endPosition).Equals(nearestEndStationDistance)).First();
+
+                    // Check if the start station if the last station
+                    if (nearestStartStation == nearestEndStation)
+                    {
+                        useBicycle = false;
+                    }
+                    else if (useBicycle)
+                    {
+                        answer.InterestPoints.Add(new InterestPoint() { Latitude = nearestStartStation.Position.Latitude, Longitude = nearestStartStation.Position.Longitude, IsStand = true });
+                        answer.InterestPoints.Add(new InterestPoint() { Latitude = nearestEndStation.Position.Latitude, Longitude = nearestEndStation.Position.Longitude, IsStand = true });
+                    }
+
+                    // Calculate path with bicycle
+                    try
+                    {
+                        cyclePath.Add(await osmRepository.GetNavigation(startPosition, nearestStartStation.Position, false));
+                        cyclePath.Add(await osmRepository.GetNavigation(nearestStartStation.Position, nearestEndStation.Position, true));
+                        cyclePath.Add(await osmRepository.GetNavigation(nearestEndStation.Position, endPosition, false));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("The bicycle path doesn't exist");
+                        noPathFound = true;
+                    }
+
+                    if (cyclePath.Count == 0)
+                    {
+                        noPathFound = true;
+                    }
 
 
-                // Calculate path with bicycle
-                List<OSM_Route> cyclePath = null;
-                try
-                {
-                    cyclePath = new List<OSM_Route>();
-                    cyclePath.Add(await osmRepository.GetNavigation(startPosition, nearestStartStation.Position, false));
-                    cyclePath.Add(await osmRepository.GetNavigation(nearestStartStation.Position, nearestEndStation.Position, true));
-                    cyclePath.Add(await osmRepository.GetNavigation(nearestEndStation.Position, endPosition, false));
+                    // Check which is faster between foot and bicycle
+                    if (!noPathFound)
+                    {
+                        double durationBicycle = cyclePath.Sum(s => s.Segments[0].Duration);
+                        if (footPath.Segments[0].Duration <= durationBicycle) useBicycle = false;
+                    }
                 }
-                catch
-                {
-                    Console.WriteLine("The bicycle path doesn't exist");
-                    noPathFound = true;
-                }
-                
-                if(footPath == null && noPathFound)
+
+                // If no path found return an error
+                if ((footPath == null && noPathFound) || (!useBicycle && footPath == null))
                 {
                     answer.Error = NavigationError.NO_PATH_FOUND;
                     answer.ErrorDetails = "No path exist with pedestrian or bicycle";
                     return answer;
                 }
 
-                double durationBicycle = cyclePath.Sum(s => s.Segments[0].Duration);
-
-                // Check which is faster between foot and bicycle
-                if (footPath.Segments[0].Duration <= durationBicycle) useBicycle = false;
+                answer.InterestPoints.Add(new InterestPoint() { Latitude = endPosition.Latitude, Longitude = endPosition.Longitude, IsStand = false });
 
                 // Determine steps
                 List<NavigationStep> steps = new List<NavigationStep>();
@@ -152,17 +153,6 @@ namespace BikingServer
                 answer.UseBicycle = useBicycle;
                 answer.StepCount = steps.Count;
 
-                // Interest point for answer
-                answer.InterestPoints = new List<InterestPoint> {
-                    new InterestPoint() { Latitude = startPosition.Latitude, Longitude = startPosition.Longitude, IsStand = false },
-                };
-                if (useBicycle)
-                {
-                    answer.InterestPoints.Add(new InterestPoint() { Latitude = nearestStartStation.Position.Latitude, Longitude = nearestStartStation.Position.Longitude, IsStand = true });
-                    answer.InterestPoints.Add(new InterestPoint() { Latitude = nearestEndStation.Position.Latitude, Longitude = nearestEndStation.Position.Longitude, IsStand = true });
-                }
-                answer.InterestPoints.Add(new InterestPoint() { Latitude = endPosition.Latitude, Longitude = endPosition.Longitude, IsStand = false });
-                
                 // Push step to activemq
                 foreach(var step in steps)
                 {
