@@ -1,10 +1,7 @@
-﻿using BikingServer.Models.JCDecaux;
-using BikingServer.Repositories;
+﻿using BikingServerCache.Models.JCDecaux;
+using BikingServerCache.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BikingServerCache.Cache

@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BikingServer.Models.JCDecaux
+namespace BikingServerCache.Models.JCDecaux
 {
     [DataContract]
     public class JC_Station

@@ -16,13 +16,12 @@ namespace BikingServer.Repositories
     public class OsmRepository
     {
         private RestClient client;
-        private const string apiKey = "5b3ce3597851110001cf62486537b9afff0f4690ac90c9034c9116c5";
-
+        
         public OsmRepository()
         {
             client = new RestClient("https://api.openrouteservice.org");
-            client.SetAuthorization("Authorization", apiKey);
-            client.SetGetApiKey("api_key", apiKey);
+            client.SetAuthorization("Authorization", Program.OPEN_ROUTE_API_KEY);
+            client.SetGetApiKey("api_key", Program.OPEN_ROUTE_API_KEY);
         }
 
         public async Task<GeoCoordinate> GetPosition(string address)

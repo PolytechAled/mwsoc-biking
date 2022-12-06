@@ -1,6 +1,6 @@
-﻿using BikingServer.Models.JCDecaux;
-using BikingServerCache.Cache;
+﻿using BikingServerCache.Cache;
 using BikingServerCache.Models;
+using BikingServerCache.Models.JCDecaux;
 using System;
 using System.Collections.Generic;
 using System.Linq;

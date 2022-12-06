@@ -1,4 +1,4 @@
-﻿using BikingServer.Models.JCDecaux;
+﻿using BikingServerCache.Models.JCDecaux;
 using RestLib;
 using System;
 using System.Collections.Generic;
@@ -7,17 +7,16 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BikingServer.Repositories
+namespace BikingServerCache.Repositories
 {
     public class JCDecauxRepository
     {
         private RestClient restClient;
-        private const string apiKey = "802e12318759b6f39e5b2454f93bc29d081a44e7";
 
         public JCDecauxRepository()
         {
             restClient = new RestClient("https://api.jcdecaux.com");
-            restClient.SetGetApiKey("apiKey", apiKey);
+            restClient.SetGetApiKey("apiKey", Program.JC_DECAUX_API_KEY);
         }
 
         public async Task<List<JC_Contract>> GetContracts()

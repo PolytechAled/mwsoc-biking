@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BikingServer.Models
+namespace BikingServerCache.Models
 {
     public class GeoCoordinate
     {

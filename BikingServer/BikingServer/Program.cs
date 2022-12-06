@@ -8,10 +8,17 @@ using System.Threading.Tasks;
 
 namespace BikingServer
 {
-    internal class Program
+    public class Program
     {
+        public static string OPEN_ROUTE_API_KEY = "5b3ce3597851110001cf62486537b9afff0f4690ac90c9034c9116c5";
+
         static void Main(string[] args)
         {
+            if (args != null && args.Length > 0)
+            {
+                OPEN_ROUTE_API_KEY = args[0];
+            }
+
             Uri uri = new Uri("http://localhost:8733/BikingServer/Service");
 
             using (ServiceHost host = new ServiceHost(typeof(BikingService), uri))

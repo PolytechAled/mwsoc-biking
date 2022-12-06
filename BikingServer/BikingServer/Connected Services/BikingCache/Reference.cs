@@ -15,7 +15,7 @@ namespace BikingServer.BikingCache {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="JC_Station", Namespace="http://schemas.datacontract.org/2004/07/BikingServer.Models.JCDecaux")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="JC_Station", Namespace="http://schemas.datacontract.org/2004/07/BikingServerCache.Models.JCDecaux")]
     [System.SerializableAttribute()]
     public partial class JC_Station : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -172,7 +172,7 @@ namespace BikingServer.BikingCache {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GeoCoordinate", Namespace="http://schemas.datacontract.org/2004/07/BikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GeoCoordinate", Namespace="http://schemas.datacontract.org/2004/07/BikingServerCache.Models")]
     [System.SerializableAttribute()]
     public partial class GeoCoordinate : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -233,7 +233,7 @@ namespace BikingServer.BikingCache {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="JC_Stand", Namespace="http://schemas.datacontract.org/2004/07/BikingServer.Models.JCDecaux")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="JC_Stand", Namespace="http://schemas.datacontract.org/2004/07/BikingServerCache.Models.JCDecaux")]
     [System.SerializableAttribute()]
     public partial class JC_Stand : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -294,7 +294,7 @@ namespace BikingServer.BikingCache {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="JC_StandDetails", Namespace="http://schemas.datacontract.org/2004/07/BikingServer.Models.JCDecaux")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="JC_StandDetails", Namespace="http://schemas.datacontract.org/2004/07/BikingServerCache.Models.JCDecaux")]
     [System.SerializableAttribute()]
     public partial class JC_StandDetails : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

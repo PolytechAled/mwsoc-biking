@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikingServer.Models
+namespace BikingServerCache.Models
 {
     public enum JC_Status
     {

@@ -1,4 +1,4 @@
-﻿using BikingServer.Models.JCDecaux;
+﻿using BikingServerCache.Models.JCDecaux;
 using System;
 using System.Collections.Generic;
 using System.Linq;
