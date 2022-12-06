@@ -35,8 +35,10 @@ namespace BikingServer
             {
                 bool useBicycle = true;
 
-                // Get position from user input addresses
+                // Get position for user start address
                 var startPosition = await osmRepository.GetPosition(startPoint);
+                
+                // Get position for user end address
                 var endPosition = await osmRepository.GetPosition(endPoint);
 
                 // Get the bicycle stations from proxy cache
@@ -110,7 +112,12 @@ namespace BikingServer
                 // Push step to activemq
                 foreach(var step in steps)
                 {
-                    activeMQRepository.SendMessageInQueue(answer.QueueName, step.Text);
+                    if (!activeMQRepository.SendMessageInQueue(answer.QueueName, step.Text))
+                    {
+                        answer.Error = NavigationError.INTERNAL_ERROR;
+                        answer.ErrorDetails = "Error with activemq";
+                        break;
+                    }
                 }
             }
             catch(Exception ex)

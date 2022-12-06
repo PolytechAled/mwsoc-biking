@@ -11,7 +11,7 @@ public class BikingFrame extends JFrame {
         setContentPane(new MainPanel());
 
         pack();
-        setResizable(false);
+        setResizable(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

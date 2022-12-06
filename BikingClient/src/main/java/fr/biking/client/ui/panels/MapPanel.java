@@ -42,6 +42,8 @@ public class MapPanel extends JPanel implements IBikingEvent {
 
         mapViewer = new JXMapViewer();
         mapViewer.setTileFactory(tileFactory);
+        mapViewer.setZoom(7);
+        mapViewer.setAddressLocation(new GeoPosition(43.295155, 5.374407));
 
         // Add interactions
         MouseInputListener mia = new PanMouseInputListener(mapViewer);
@@ -58,7 +60,7 @@ public class MapPanel extends JPanel implements IBikingEvent {
 
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
-        setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         add(mapViewer);
     }
@@ -89,6 +91,11 @@ public class MapPanel extends JPanel implements IBikingEvent {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(600, 600);
+    }
+
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(600,600);
     }
 
     @Override
