@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GeoCoordinate", propOrder = {
+@XmlType(name = "GeoCoordinate", namespace = "http://schemas.datacontract.org/2004/07/BikingServerCache.Models", propOrder = {
     "latitude",
     "longitude"
 })

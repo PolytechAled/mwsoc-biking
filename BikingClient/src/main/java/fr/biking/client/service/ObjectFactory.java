@@ -32,7 +32,7 @@ public class ObjectFactory {
     private final static QName _NavigationError_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "NavigationError");
     private final static QName _ArrayOfInterestPoint_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "ArrayOfInterestPoint");
     private final static QName _InterestPoint_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "InterestPoint");
-    private final static QName _GeoCoordinate_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServer.Models", "GeoCoordinate");
+    private final static QName _GeoCoordinate_QNAME = new QName("http://schemas.datacontract.org/2004/07/BikingServerCache.Models", "GeoCoordinate");
     private final static QName _AnyType_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyType");
     private final static QName _AnyURI_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyURI");
     private final static QName _Base64Binary_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "base64Binary");
@@ -177,7 +177,7 @@ public class ObjectFactory {
      * @return
      *     the new instance of {@link JAXBElement }{@code <}{@link GeoCoordinate }{@code >}
      */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServer.Models", name = "GeoCoordinate")
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/BikingServerCache.Models", name = "GeoCoordinate")
     public JAXBElement<GeoCoordinate> createGeoCoordinate(GeoCoordinate value) {
         return new JAXBElement<GeoCoordinate>(_GeoCoordinate_QNAME, GeoCoordinate.class, null, value);
     }

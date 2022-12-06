@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="InterestPoint"&gt;
  *   &lt;complexContent&gt;
- *     &lt;extension base="{http://schemas.datacontract.org/2004/07/BikingServer.Models}GeoCoordinate"&gt;
+ *     &lt;extension base="{http://schemas.datacontract.org/2004/07/BikingServerCache.Models}GeoCoordinate"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="Description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="IsStand" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
