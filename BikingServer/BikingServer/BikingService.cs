@@ -46,10 +46,10 @@ namespace BikingServer
                         throw new Exception();
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     answer.Error = NavigationError.NO_LOCATION_FOUND;
-                    answer.ErrorDetails = ex.Message;
+                    answer.ErrorDetails = "The starting point was not recognized";
                     return answer;
                 }
 
@@ -62,10 +62,10 @@ namespace BikingServer
                     }
                 }
                 // Get position for user end address
-                catch (Exception ex)
+                catch
                 {
                     answer.Error = NavigationError.NO_LOCATION_FOUND;
-                    answer.ErrorDetails = ex.Message;
+                    answer.ErrorDetails = "The end point was not recognized";
                     return answer;
                 }
 
