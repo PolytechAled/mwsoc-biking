@@ -1,6 +1,5 @@
 package fr.biking.client.ui.panels;
 
-import com.sun.activation.viewers.ImageViewer;
 import fr.biking.client.BikingManager;
 import fr.biking.client.IBikingEvent;
 import fr.biking.client.activemq.ActiveMqClient;
@@ -11,7 +10,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 

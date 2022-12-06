@@ -10,6 +10,7 @@ public class SearchPanel extends JPanel {
     public SearchPanel() {
         GridLayout layout = new GridLayout(5,1);
         setLayout(layout);
+        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         JTextField fromField = new JTextField();
         JTextField toField = new JTextField();

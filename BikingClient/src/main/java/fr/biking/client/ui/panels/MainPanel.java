@@ -27,13 +27,14 @@ public class MainPanel extends JPanel implements IBikingEvent {
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
         GridBagConstraints c = new GridBagConstraints();
+        c.fill = HORIZONTAL;
 
         c.gridx = 0;
         c.gridy = 0;
         add(searchPanel, c);
 
-        c.gridx = 1;
-        c.gridy = 0;
+        c.gridx = 0;
+        c.gridy = 1;
         add(mapPanel, c);
     }
 
