@@ -50,6 +50,7 @@ namespace BikingServer
                 {
                     answer.Error = NavigationError.NO_LOCATION_FOUND;
                     answer.ErrorDetails = ex.Message;
+                    return answer;
                 }
 
                 try
@@ -65,6 +66,7 @@ namespace BikingServer
                 {
                     answer.Error = NavigationError.NO_LOCATION_FOUND;
                     answer.ErrorDetails = ex.Message;
+                    return answer;
                 }
 
             // Get the bicycle stations from proxy cache
