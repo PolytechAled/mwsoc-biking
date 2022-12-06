@@ -17,9 +17,8 @@ Groupe: SI4 **FISA**
 
 ## Procédure de lancement
 
-### Attention
-
-:warning: Il est obligatoire de lancer en **administrateur** les différents serveurs car nous utilisons des ports et urls différents entre le serveur et le serveur de cache, or cela est permis par **Windaube** seulement en administrateur.
+> **Warning**
+> Il est obligatoire de lancer en **administrateur** les différents serveurs car nous utilisons des ports et urls différents entre le serveur et le serveur de cache, or cela est permis par **Windaube** seulement en administrateur.
 
 ### Automatique
 Lancer un Terminal dans le dossier du projet.
