@@ -60,7 +60,7 @@ namespace BikingServer
 
                 // Get the bicycle stations from proxy cache
                 var stationList = await bikingCache.GetJCStationsAsync();
-                if (stationList != null && stationList.Length > 0) useBicycle = false;
+                if (stationList == null || stationList.Length == 0) useBicycle = false;
 
 
                 List<OSM_Route> cyclePath = new List<OSM_Route>();
