@@ -34,15 +34,41 @@ namespace BikingServer
             try
             {
                 bool useBicycle = true;
+                GeoCoordinate startPosition = null;
+                GeoCoordinate endPosition = null ;
 
-                // Get position for user start address
-                var startPosition = await osmRepository.GetPosition(startPoint);
-                
+                try
+                {
+                    // Get position for user start address
+                    startPosition = await osmRepository.GetPosition(startPoint);
+                    if(startPosition == null)
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    answer.Error = NavigationError.NO_LOCATION_FOUND;
+                    answer.ErrorDetails = ex.Message;
+                }
+
+                try
+                {
+                    endPosition = await osmRepository.GetPosition(endPoint);
+                    if(endPosition == null)
+                    {
+                        throw new Exception();
+                    }
+                }
                 // Get position for user end address
-                var endPosition = await osmRepository.GetPosition(endPoint);
+                catch (Exception ex)
+                {
+                    answer.Error = NavigationError.NO_LOCATION_FOUND;
+                    answer.ErrorDetails = ex.Message;
+                }
 
-                // Get the bicycle stations from proxy cache
-                var stationList = await bikingCache.GetJCStationsAsync();
+            // Get the bicycle stations from proxy cache
+            var stationList = await bikingCache.GetJCStationsAsync();
 
                 // Get the nearest stations to the start and end point
                 var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike() > 0).Min(s => s.Position.Distance(startPosition));
