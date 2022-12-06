@@ -40,7 +40,7 @@ public class MainPanel extends JPanel implements IBikingEvent {
         c.gridy = 1;
         c.fill = HORIZONTAL;
         add(stepsPanel, c);
-        stepsPanel.setVisible(false);
+//        stepsPanel.setVisible(false);
     }
 
     @Override

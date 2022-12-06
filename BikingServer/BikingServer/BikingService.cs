@@ -69,8 +69,8 @@ namespace BikingServer
                     return answer;
                 }
 
-            // Get the bicycle stations from proxy cache
-            var stationList = await bikingCache.GetJCStationsAsync();
+                 // Get the bicycle stations from proxy cache
+                var stationList = await bikingCache.GetJCStationsAsync();
 
                 // Get the nearest stations to the start and end point
                 var nearestStartStationDistance = stationList.Where(s => s.Stand.Details.AvailableBike() > 0).Min(s => s.Position.Distance(startPosition));
