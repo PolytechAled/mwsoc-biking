@@ -20,20 +20,15 @@ Groupe: SI4 **FISA**
 > **Warning**
 > Il est obligatoire de lancer en **administrateur** les différents serveurs car nous utilisons des ports et urls différents entre le serveur et le serveur de cache, or cela est permis par **Windaube** seulement en administrateur.
 
-### Automatique
-Lancer un Terminal dans le dossier du projet.
-```powershell
-#Lancement ActiveMQ
-.\ActiveMQ_start.bat
-#Lancement des serveurs et client
-.\biking_start.bat
-```
-### Manuelle
-1. Lancer activeMQ (activemq:tcp://localhost:61616).
-2. Executer le proxy cache.
-3. Executer le serveur.
-4. Executer le client.
-5. Profiter !
+### Prérequis
+Testé avec JDK 11, 17 et 18.
+
+Avoir ActiveMQ de lancer à l'adresse: `activemq:tcp://localhost:61616`
+
+### Etapes
+1. Executer en **mode administrateur** le fichier `bin/cache/BikingServerCache.exe`.
+2. Executer en **mode administrateur** le fichier `bin/server/BikingServer.exe`.
+3. Executer le fichier `Client_Start.bat` pour executer le client.
 
 ### Accès
 Il sera possible d'accèder au serveur cache via l'url http://localhost:8733/BikingCache/Service et au serveur de base via http://localhost:8733/BikingServer/Service.
