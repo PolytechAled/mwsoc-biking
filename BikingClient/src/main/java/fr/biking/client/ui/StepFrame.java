@@ -8,7 +8,7 @@ public class StepFrame extends JFrame {
 
     public StepFrame() {
         super();
-        setContentPane(new StepsPanel());
+        setContentPane(new StepsPanel(this));
         pack();
         setLocationRelativeTo(null);
         setVisible(false);

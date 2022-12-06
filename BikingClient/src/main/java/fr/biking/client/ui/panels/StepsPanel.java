@@ -20,11 +20,15 @@ public class StepsPanel extends JPanel implements IBikingEvent {
     private JLabel stepLabel;
     private JLabel stepCountLabel;
     private JLabel bicycleLabel;
+    private JFrame stepFrame;
+    private JButton nextStepBtn;
     private int totalStepCount;
     private int currentStep;
     private String stepQueueId;
 
-    public StepsPanel() {
+    public StepsPanel(JFrame stepFrame) {
+        this.stepFrame = stepFrame;
+
         BikingManager.instance.addHandler(this);
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
@@ -48,7 +52,7 @@ public class StepsPanel extends JPanel implements IBikingEvent {
         stepLabel = new JLabel("Next step: None");
         add(stepLabel);
 
-        JButton nextStepBtn = new JButton("Next step");
+        nextStepBtn = new JButton("Next step");
         nextStepBtn.addActionListener((s) -> showNextStep());
         add(nextStepBtn);
     }
@@ -71,11 +75,21 @@ public class StepsPanel extends JPanel implements IBikingEvent {
     }
 
     private void showNextStep() {
+        if (currentStep > totalStepCount) {
+            this.stepFrame.setVisible(false);
+            return;
+        }
+
         if (stepQueueId != null && !stepQueueId.isEmpty() && !stepQueueId.isBlank()) {
             String text = ActiveMqClient.INSTANCE.getNextQueueMessage(stepQueueId);
             if (text != null) {
+                nextStepBtn.setText("Next step");
                 stepLabel.setText(text);
                 stepCountLabel.setText(currentStep++ + "/" + totalStepCount);
+            }
+
+            if (currentStep > totalStepCount) {
+                nextStepBtn.setText("Close");
             }
         }
     }
