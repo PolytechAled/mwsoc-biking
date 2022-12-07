@@ -18,7 +18,7 @@ Groupe: SI4 **FISA**
 ## Procédure de lancement
 
 > **Warning**
-> Il est obligatoire de lancer en **administrateur** les différents serveurs car nous utilisons des ports et urls différents entre le serveur et le serveur de cache, or cela est permis par **Windaube** seulement en administrateur.
+> Il est obligatoire de lancer en **administrateur** les différents serveurs car nous utilisons des ports et urls différents entre le serveur et le serveur de cache, or cela est permis par **Windows** seulement en administrateur.
 
 ### Prérequis
 Testé avec JDK 11, 17 et 18.
